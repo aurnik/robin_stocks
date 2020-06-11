@@ -4,6 +4,7 @@ data.pickle
 build/
 dist/
 tests/
+venv/
 uploadnotes.txt
 .DS_Store
 *.egg-info/

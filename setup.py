@@ -14,15 +14,16 @@ setup(name='robin_stocks',
       url='https://github.com/jmfernandes/robin_stocks',
       author='Josh Fernandes',
       author_email='joshfernandes@mac.com',
-      keywords=['robinhood','robin stocks','finance app','stocks','options','trading','investing'],
+      keywords=['robinhood', 'robin stocks', 'finance app',
+          'stocks', 'options', 'trading', 'investing'],
       license='MIT',
       python_requires='>=3',
       packages=find_packages(),
-      requires=['requests', 'pyotp', 'cryptography'],
-      install_requires=[
+      requires=['requests', 'pyotp', 'cryptography', 'boto3', 'slackclient']],
+      install_requires = [
           'requests',
           'pyotp',
           'python-dotenv',
           'cryptography'
       ],
-      zip_safe=False)
+      zip_safe = False)

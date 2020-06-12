@@ -24,6 +24,6 @@ setup(name='robin_stocks',
           'requests',
           'pyotp',
           'python-dotenv',
-          'cryptography', 'boto3', 'slackclient'
+          'cryptography', 'boto3 >= 1.13.0', 'slackclient'
       ],
       zip_safe = False)

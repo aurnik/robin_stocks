@@ -20,6 +20,6 @@ setup(name='robin_stocks',
       packages=find_packages(),
       requires=['requests','boto3','slackclient'],
       install_requires=[
-          'requests',
+          'requests','boto3','slackclient'
       ],
       zip_safe=False)

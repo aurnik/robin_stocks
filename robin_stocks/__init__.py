@@ -35,7 +35,7 @@ from .crypto import load_crypto_profile,        \
                     get_crypto_quote,           \
                     get_crypto_quote_from_id,   \
                     get_crypto_positions,       \
-                    get_crypto_historical
+                    get_crypto_historicals
 
 from .export import export_completed_stock_orders, \
                     export_completed_option_orders
@@ -55,13 +55,11 @@ from .options import get_aggregate_positions,                           \
                      get_all_option_positions,                          \
                      get_open_option_positions,                         \
                      get_chains,                                        \
-                     find_tradable_options_for_stock,                   \
-                     find_options_for_stock_by_expiration,              \
-                     find_options_for_stock_by_strike,                  \
-                     find_options_for_stock_by_expiration_and_strike,   \
-                     find_options_for_list_of_stocks_by_expiration_date,\
-                     get_list_market_data,                              \
-                     get_list_options_of_specific_profitability,        \
+                     find_tradable_options,                             \
+                     find_options_by_expiration,                        \
+                     find_options_by_strike,                            \
+                     find_options_by_expiration_and_strike,             \
+                     find_options_by_specific_profitability,        \
                      get_option_market_data_by_id,                      \
                      get_option_market_data,                            \
                      get_option_instrument_data_by_id,                  \
@@ -133,7 +131,7 @@ from .stocks import get_quotes,                 \
                     get_news,                   \
                     get_splits,                 \
                     find_instrument_data,       \
-                    get_historicals,            \
+                    get_stock_historicals,      \
                     get_pricebook_by_id,        \
                     get_pricebook_by_symbol,    \
                     get_stock_quote_by_id,      \

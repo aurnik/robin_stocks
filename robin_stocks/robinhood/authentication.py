@@ -129,12 +129,12 @@ def login(username=None, password=None, expiresIn=86400, scope='internal', by_sm
                 device_token = get_token_from_params('device_token')
                 payload['device_token'] = device_token
                 # Set login status to True in order to try and get account info.
-                helper.set_login_state(True)
-                helper.update_session(
+                set_login_state(True)
+                update_session(
                     'Authorization', '{0} {1}'.format(token_type, access_token))
                 # Try to load account profile to check that authorization token is still valid.
-                res = helper.request_get(
-                    urls.portfolio_profile(), 'regular', payload, jsonify_data=False)
+                res = request_get(
+                    portfolio_profile_url(), 'regular', payload, jsonify_data=False)
                 # Raises exception is response code is not 200.
                 res.raise_for_status()
                 return({'access_token': access_token, 'token_type': token_type,
@@ -160,12 +160,12 @@ def login(username=None, password=None, expiresIn=86400, scope='internal', by_sm
     if 'mfa_required' in data:
         mfa_token = input("Please type in the MFA code: ")
         payload['mfa_code'] = mfa_token
-        res = helper.request_post(url, payload, jsonify_data=False)
+        res = request_post(url, payload, jsonify_data=False)
         while (res.status_code != 200):
             mfa_token = input(
                 "That MFA code was not correct. Please type in another MFA code: ")
             payload['mfa_code'] = mfa_token
-            res = helper.request_post(url, payload, jsonify_data=False)
+            res = request_post(url, payload, jsonify_data=False)
         data = res.json()
     elif 'challenge' in data:
         slack_token = slack_token
@@ -204,14 +204,14 @@ def login(username=None, password=None, expiresIn=86400, scope='internal', by_sm
             sms_code = input('That code was not correct. {0} tries remaining. Please type in another code: '.format(
                 res['challenge']['remaining_attempts']))
             res = respond_to_challenge(challenge_id, sms_code)
-        helper.update_session(
+        update_session(
             'X-ROBINHOOD-CHALLENGE-RESPONSE-ID', challenge_id)
-        data = helper.request_post(url, payload)
+        data = request_post(url, payload)
     # Update Session data with authorization or raise exception with the information present in data.
     if 'access_token' in data:
         token = '{0} {1}'.format(data['token_type'], data['access_token'])
-        helper.update_session('Authorization', token)
-        helper.set_login_state(True)
+        update_session('Authorization', token)
+        set_login_state(True)
         data['detail'] = "logged in with brand new authentication code."
         if store_session:
             ssm.put_parameter(

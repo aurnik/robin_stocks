@@ -15,15 +15,15 @@ setup(name='robin_stocks',
       author='Josh Fernandes',
       author_email='joshfernandes@mac.com',
       keywords=['robinhood', 'robin stocks', 'finance app',
-          'stocks', 'options', 'trading', 'investing'],
+                'stocks', 'options', 'trading', 'investing'],
       license='MIT',
       python_requires='>=3',
       packages=find_packages(),
-      requires=['requests', 'pyotp', 'cryptography', 'boto3', 'slackclient']],
-      install_requires = [
+      requires=['requests', 'pyotp', 'cryptography', 'boto3', 'slackclient'],
+      install_requires=[
           'requests',
           'pyotp',
           'python-dotenv',
           'cryptography', 'boto3 == 1.13.0', 'botocore == 1.16.21', 'jmespath ~= 0.9.5', 'python-dateutil == 2.8', 'slackclient'
       ],
-      zip_safe = False)
+      zip_safe=False)

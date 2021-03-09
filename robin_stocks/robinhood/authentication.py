@@ -6,8 +6,10 @@ from datetime import datetime, timezone, timedelta
 from slack import WebClient
 import time
 
+
 from robin_stocks.robinhood.helper import *
 from robin_stocks.robinhood.urls import *
+
 ssm = boto3.client('ssm')
 
 
@@ -86,7 +88,6 @@ def login(username=None, password=None, expiresIn=86400, scope='internal', by_sm
 
     """
     device_token = generate_device_token()
-
     tokens = ['token_type', 'access_token', 'refresh_token', 'device_token']
     aws_params = ssm.get_parameters(Names=tokens, WithDecryption=True)
 
@@ -111,8 +112,8 @@ def login(username=None, password=None, expiresIn=86400, scope='internal', by_sm
         'device_token': device_token
     }
 
-    # if mfa_code:
-    #     payload['mfa_code'] = mfa_code
+    if mfa_code:
+        payload['mfa_code'] = mfa_code
 
     # If authentication has been stored in AWS param store then load it. Stops login server from being pinged so much.
     # and aws_params['Parameters'][0]['LastModifiedDate'] > datetime.now(timezone.utc) - timedelta(days=1)
@@ -141,9 +142,9 @@ def login(username=None, password=None, expiresIn=86400, scope='internal', by_sm
                         'backup_code': None, 'refresh_token': refresh_token})
             except:
                 print(
-                    "ERROR: There was an issue loading tokens. Authentication may be expired - logging in normally.")
-                helper.set_login_state(False)
-                helper.update_session('Authorization', None)
+                    "ERROR: There was an issue loading tokens. Authentication may be expired - logging in normally.", file=get_output())
+                set_login_state(False)
+                update_session('Authorization', None)
 
     # Try to log in normally.
     if not username:
